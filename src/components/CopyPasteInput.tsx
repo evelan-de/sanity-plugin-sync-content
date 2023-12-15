@@ -16,11 +16,11 @@ import {
 } from '@sanity/ui'
 import React, {useCallback, useEffect, useState} from 'react'
 import {StringInputProps, useClient, useFormValue} from 'sanity'
-import SelectedPage from './SelectedPage'
-import {SpinnerFixed} from './SpinnerFixed'
-import type {CheckedPage, Page} from './types'
-import {deepSearchReplace, getObjectFromLs, pagesQuery, writeObjectToLs} from './utils'
-import {cn} from './utils'
+import SelectedPage from 'src/components/SelectedPage'
+import {SpinnerFixed} from 'src/components/SpinnerFixed'
+import type {CheckedPage, Page} from 'src/types'
+import {deepSearchReplace, getObjectFromLs, pagesQuery, writeObjectToLs} from 'src/utils'
+import {cn} from 'src/utils'
 
 const CopyPasteInput: React.FC<StringInputProps> = ({id}) => {
   const client = useClient({apiVersion: '2021-10-21'})

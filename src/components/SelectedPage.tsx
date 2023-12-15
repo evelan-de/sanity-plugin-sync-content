@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {Box, Card, Checkbox, Flex, studioTheme, Text, ThemeProvider} from '@sanity/ui'
 import React, {Dispatch, useEffect, useRef} from 'react'
-import {CheckedPage, Page} from './types'
+import {CheckedPage, Page} from 'src/types'
 
 interface SelectedPageProps {
   page: Page
