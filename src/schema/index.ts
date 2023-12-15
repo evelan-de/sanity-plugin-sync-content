@@ -1,5 +1,5 @@
-import {defineField} from 'sanity'
-import CopyPasteInput from 'src/components/CopyPasteInput'
+import { defineField } from 'sanity';
+import CopyPasteInput from 'src/components/CopyPasteInput';
 
 export const copyPaste = defineField({
   name: 'copypaste',
@@ -8,4 +8,4 @@ export const copyPaste = defineField({
   components: {
     input: CopyPasteInput,
   },
-})
+});

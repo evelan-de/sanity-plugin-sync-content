@@ -1,24 +1,37 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Box, Card, Checkbox, Flex, studioTheme, Text, ThemeProvider} from '@sanity/ui'
-import React, {Dispatch, useEffect, useRef} from 'react'
-import {CheckedPage, Page} from 'src/types'
+import {
+  Box,
+  Card,
+  Checkbox,
+  Flex,
+  studioTheme,
+  Text,
+  ThemeProvider,
+} from '@sanity/ui';
+import React, { Dispatch, useEffect, useRef } from 'react';
+import { CheckedPage, Page } from 'src/types';
 
 interface SelectedPageProps {
-  page: Page
-  checkedPages: CheckedPage
-  setCheckedPages: Dispatch<React.SetStateAction<CheckedPage>>
-  isDeselect: boolean
+  page: Page;
+  checkedPages: CheckedPage;
+  setCheckedPages: Dispatch<React.SetStateAction<CheckedPage>>;
+  isDeselect: boolean;
 }
 
-const SelectedPage = ({page, checkedPages, setCheckedPages, isDeselect}: SelectedPageProps) => {
-  const pageRef = useRef<HTMLInputElement>(null)
-  const {title, _id} = page
+const SelectedPage = ({
+  page,
+  checkedPages,
+  setCheckedPages,
+  isDeselect,
+}: SelectedPageProps) => {
+  const pageRef = useRef<HTMLInputElement>(null);
+  const { title, _id } = page;
   useEffect(() => {
     if (isDeselect && pageRef.current && pageRef.current.checked) {
-      pageRef.current.checked = false
+      pageRef.current.checked = false;
     }
-  }, [isDeselect])
+  }, [isDeselect]);
   return (
     <ThemeProvider theme={studioTheme}>
       <Card padding={4}>
@@ -47,6 +60,6 @@ const SelectedPage = ({page, checkedPages, setCheckedPages, isDeselect}: Selecte
         </Flex>
       </Card>
     </ThemeProvider>
-  )
-}
-export default SelectedPage
+  );
+};
+export default SelectedPage;

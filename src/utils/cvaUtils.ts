@@ -4,4 +4,4 @@
  * @param inputs List of ClassValue
  * @returns string
  */
-export {twMerge as cn} from 'tailwind-merge'
+export { twMerge as cn } from 'tailwind-merge';

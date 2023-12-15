@@ -1,4 +1,4 @@
-import {generateSanityId} from 'src/utils'
+import { generateSanityId } from 'src/utils';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const deepSearchReplace = (target: any) => {
@@ -6,17 +6,17 @@ export const deepSearchReplace = (target: any) => {
     if (typeof target === 'object') {
       for (const key in target) {
         if (typeof target[key] === 'object') {
-          deepSearchReplace(target[key])
+          deepSearchReplace(target[key]);
         } else if (key === '_key') {
-          target[key] = generateSanityId()
+          target[key] = generateSanityId();
         }
       }
     } else {
-      console.error('undefined type: ', typeof target)
+      console.error('undefined type: ', typeof target);
     }
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-  return target
-}
-export default deepSearchReplace
+  return target;
+};
+export default deepSearchReplace;
