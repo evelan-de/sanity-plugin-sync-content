@@ -4,6 +4,7 @@ export interface Page {
   _updatedAt: string;
   title: string;
 }
+
 export interface CheckedPage {
   [id: string]: boolean;
 }

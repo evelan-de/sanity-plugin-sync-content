@@ -22,28 +22,33 @@ import type { CheckedPage, Page } from 'src/types';
 import {
   cn,
   deepSearchReplace,
+  documentsQuery,
   getObjectFromLs,
-  pagesQuery,
   writeObjectToLs,
 } from 'src/utils';
 
 const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
   const client = useClient({ apiVersion: '2021-10-21' });
   const toast = useToast();
+
   const [open, setOpen] = useState(false);
   const [isDeselect, setDeselect] = useState(false);
   const [pagesForMultipleCopy, setPagesForMultipleCopy] = useState<Page[]>([]);
   const [checkedPages, setCheckedPages] = useState<CheckedPage>({});
   const [isLoadingPaste, setLoadingPaste] = useState(false);
   const [allowedToPaste, setAllowedToPaste] = useState(false);
+
   const onClose = useCallback(() => setOpen(false), []);
   const onOpen = useCallback(() => setOpen(true), []);
+
   const match = RegExp(/_key=="(\w+)"/).exec(id) ?? [];
   const extractedString = match[1];
   const blocksName = id.split('[')[0];
+
   const blocks = useFormValue([blocksName]) as { _key: string }[];
   const documentId = useFormValue(['_id']) as string;
   const documentType = useFormValue(['_type']) as string;
+
   const parent = blocks.find((block) => block._key === extractedString) as {
     _type: string;
     _key: string;
@@ -54,14 +59,20 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
   const duplicateDisable =
     Object.values(checkedPages).filter((value) => value).length < 1 ||
     isLoadingPaste;
+
   useEffect(() => {
     async function retrievePages() {
-      const pages = await client.fetch<Page[]>(pagesQuery, { documentType });
+      const pages = await client.fetch<Page[]>(documentsQuery, {
+        documentType,
+      });
+
       return pages;
     }
+
     retrievePages()
       .then((pages) => setPagesForMultipleCopy(pages))
       .catch((error) => console.error(error));
+
     // Only allow to "Paste" if there's an block object from localstorage that's has the same "_type" as this current block
     const searchBlock = getObjectFromLs(parent._type);
     if (searchBlock) {
@@ -69,6 +80,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, documentType]);
+
   const onPaste = async () => {
     setLoadingPaste(true);
     const objCopy = deepSearchReplace(getObjectFromLs(parent._type));
@@ -104,6 +116,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
           });
         });
     };
+
     if (draftsVersionExist) {
       await updateDocument();
     } else {
@@ -116,6 +129,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
       });
     }
   };
+
   const onCopy = (isToast = true) => {
     writeObjectToLs({ ...parent });
     if (isToast) {
@@ -126,12 +140,15 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
     }
     setAllowedToPaste(true);
   };
+
   const onSubmit = () => {
     setLoadingPaste(true);
+
     const objCopy = getObjectFromLs(parent._type);
     const pagesForPatch = Object.entries(checkedPages).filter(
       (page) => page[1]
     );
+
     let i = 0;
     const patchPages = new Promise<void>((resolve) => {
       pagesForPatch.forEach(async (page) => {
@@ -155,7 +172,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
                 resolve();
               }
             })
-            .catch(async (err) => {
+            .catch((err) => {
               console.error(err);
               toast.push({
                 status: 'error',
@@ -211,10 +228,12 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
         setLoadingPaste(false);
       });
   };
+
   const multipleDuplicate = () => {
     onCopy(false);
     onOpen();
   };
+
   const deselectAll = () => {
     setCheckedPages({});
     setDeselect(true);
@@ -222,6 +241,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
       setDeselect(false);
     }, 100);
   };
+
   return (
     <ThemeProvider theme={studioTheme}>
       <Stack space={1}>
@@ -335,5 +355,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
     </ThemeProvider>
   );
 };
+
 CopyPasteInput.displayName = 'CopyPasteInput';
+
 export default CopyPasteInput;

@@ -9,8 +9,15 @@ import {
   Text,
   ThemeProvider,
 } from '@sanity/ui';
-import React, { Dispatch, useEffect, useRef } from 'react';
-import { CheckedPage, Page } from 'src/types';
+import React, {
+  Dispatch,
+  FC,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
+import type { CheckedPage, Page } from 'src/types';
 
 interface SelectedPageProps {
   page: Page;
@@ -19,19 +26,31 @@ interface SelectedPageProps {
   isDeselect: boolean;
 }
 
-const SelectedPage = ({
+const SelectedPage: FC<SelectedPageProps> = ({
   page,
   checkedPages,
   setCheckedPages,
   isDeselect,
-}: SelectedPageProps) => {
+}) => {
   const pageRef = useRef<HTMLInputElement>(null);
   const { title, _id } = page;
+
+  const handleCheckPage = useCallback(
+    (e: FormEvent<HTMLInputElement>) => {
+      setCheckedPages({
+        ...checkedPages,
+        [page._id]: (e.target as HTMLInputElement).checked,
+      });
+    },
+    [checkedPages, page._id, setCheckedPages]
+  );
+
   useEffect(() => {
     if (isDeselect && pageRef.current && pageRef.current.checked) {
       pageRef.current.checked = false;
     }
   }, [isDeselect]);
+
   return (
     <ThemeProvider theme={studioTheme}>
       <Card padding={4}>
@@ -40,12 +59,7 @@ const SelectedPage = ({
             id={page._id}
             className="block"
             ref={pageRef}
-            onChange={(e) =>
-              setCheckedPages({
-                ...checkedPages,
-                [page._id]: (e.target as HTMLInputElement).checked,
-              })
-            }
+            onChange={handleCheckPage}
           />
           <label htmlFor={page._id}>
             <Box flex={1} paddingLeft={3}>
