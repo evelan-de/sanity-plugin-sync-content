@@ -51,7 +51,6 @@
     "@sanity/icons": "2.8.0",
     "@sanity/incompatible-plugin": "1.0.4",
     "@sanity/ui": "1.7.9",
-    "next-sanity": "7.0.4",
     "tailwind-merge": "2.1.0"
   },
   "devDependencies": {
