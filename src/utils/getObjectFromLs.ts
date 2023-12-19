@@ -1,4 +1,4 @@
-import { ls } from 'src/utils';
+import { ls } from './localStorage';
 
 export const getObjectFromLs = (blockType: string): object | string | null => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions

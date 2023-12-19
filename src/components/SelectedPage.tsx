@@ -17,7 +17,8 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
-import type { CheckedPage, Page } from 'src/types';
+
+import type { CheckedPage, Page } from '../types';
 
 interface SelectedPageProps {
   page: Page;

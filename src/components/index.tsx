@@ -1,4 +1,4 @@
-import CopyPasteInput from 'src/components/CopyPasteInput';
-import SelectedPage from 'src/components/SelectedPage';
+import CopyPasteInput from './CopyPasteInput';
+import SelectedPage from './SelectedPage';
 
 export { CopyPasteInput, SelectedPage };

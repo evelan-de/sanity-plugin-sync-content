@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity';
-import CopyPasteInput from 'src/components/CopyPasteInput';
+
+import CopyPasteInput from '../../components/CopyPasteInput';
 
 const copyPasteButtons = defineField({
   name: 'copypasteButtons',

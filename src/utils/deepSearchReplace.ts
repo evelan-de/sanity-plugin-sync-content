@@ -1,4 +1,4 @@
-import { generateSanityId } from 'src/utils';
+import { generateSanityId } from './generateSanityId';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const deepSearchReplace = (target: any) => {

@@ -1,1 +1,1 @@
-export { syncContentPlugin } from 'src/plugin/syncContentPlugin';
+export { syncContentPlugin } from './plugin/syncContentPlugin';
