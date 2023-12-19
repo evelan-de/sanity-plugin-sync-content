@@ -1,4 +1,4 @@
-# sanity-plugin-sync-content
+# Sanity Plugin Sync Content
 
 > This is a **Sanity Studio v3** plugin.
 
@@ -14,11 +14,56 @@ Add it as a plugin in `sanity.config.ts` (or .js):
 
 ```ts
 import {defineConfig} from 'sanity'
-import {myPlugin} from 'sanity-plugin-sync-content'
+import {syncContentPlugin} from 'sanity-plugin-sync-content'
 
 export default defineConfig({
   //...
-  plugins: [myPlugin({})],
+  plugins: [
+    // ...other plugins
+    syncContentPlugin()
+  ],
+})
+```
+
+Just add directly the defineField for copyPaste directly into any of your referenced block array like so:
+
+```ts
+import {defineConfig} from 'sanity'
+import {copyPaste} from 'sanity-plugin-sync-content'
+
+export default defineType({
+  name: "my-section",
+  title: "My Example Section",
+  type: "object",
+  fields: [
+    copyPaste,
+    // ...your-other-fields
+  ]
+})
+```
+
+## Overriding copyPaste field configuration
+
+You can override some of the configuration for the copyPaste field like so:
+
+```ts
+export default defineType({
+  name: "my-section",
+  title: "My Example Section",
+  type: "object",
+  fields: [
+    {
+      ...copyPaste,
+      title: "The New Copy Paste Title",
+      hidden: () => {
+        // Some logic
+
+        return true;
+      },
+      // ...other configurations
+    },
+    // ...your-other-fields
+  ]
 })
 ```
 
