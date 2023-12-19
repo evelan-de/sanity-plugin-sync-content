@@ -80,8 +80,6 @@ module.exports = {
   ignorePatterns: [
     ".eslintrc.js",
     "*.config.*",
-    "legacy/**/*",
-    "src/project/sanity/theme/*.js",
   ],
   overrides: [
     {
