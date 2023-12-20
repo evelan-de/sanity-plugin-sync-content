@@ -15,7 +15,12 @@ import {
   useToast,
 } from '@sanity/ui';
 import React, { useCallback, useEffect, useState } from 'react';
-import { StringInputProps, useClient, useFormValue } from 'sanity';
+import {
+  StringInputProps,
+  useClient,
+  useFormValue,
+  useTranslation,
+} from 'sanity';
 
 import type { CheckedPage, Page } from '../types';
 import {
@@ -29,6 +34,7 @@ import SelectedPage from './SelectedPage';
 import { SpinnerFixed } from './SpinnerFixed';
 
 const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
+  const { t } = useTranslation('sanity-plugin-sync-content');
   const client = useClient({ apiVersion: '2021-10-21' });
   const toast = useToast();
 
@@ -99,7 +105,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
           setLoadingPaste(false);
           toast.push({
             status: 'success',
-            title: 'Pasted successfully',
+            title: t('copy-paste-input.success'),
           });
         })
         .catch((err) => {
@@ -136,7 +142,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
     if (isToast) {
       toast.push({
         status: 'success',
-        title: 'Copied successfully',
+        title: t('copy-paste-input.copy.success'),
       });
     }
     setAllowedToPaste(true);
@@ -212,13 +218,17 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
           setTimeout(() => {
             toast.push({
               status: 'success',
-              title: `Duplicated to ${i} pages successfully`,
+              title: t('copy-paste-input.duplicate.success', {
+                page: i,
+              }),
             });
           }, 1000);
         } else {
           toast.push({
             status: 'warning',
-            title: `Duplicated to ${i} pages with some warnings`,
+            title: t('copy-paste-input.duplicate.warning', {
+              page: i,
+            }),
           });
         }
         setLoadingPaste(false);
@@ -248,7 +258,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
       <Stack space={1}>
         {open && (
           <Dialog
-            header="Duplicate to multiple pages"
+            header={t('copy-paste-input.dialog.header')}
             id="dialog"
             onClose={onClose}
             zOffset={1000}
@@ -276,7 +286,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
                     justify="space-between"
                   >
                     <Button
-                      text="Deselect all"
+                      text={t('copy-paste-input.dialog.button.deselect-all')}
                       mode="ghost"
                       onClick={() => deselectAll()}
                       disabled={duplicateDisable}
@@ -289,8 +299,10 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
                     <Button
                       text={
                         isLoadingPaste
-                          ? 'Duplicating to selected pages...'
-                          : 'Duplicate the block to selected pages'
+                          ? t(
+                              'copy-paste-input.dialog.button.duplicate-loading'
+                            )
+                          : t('copy-paste-input.dialog.button.duplicate')
                       }
                       tone="positive"
                       disabled={duplicateDisable}
@@ -316,7 +328,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
                 >
                   <Spinner muted />
                   <Text muted size={1}>
-                    Loading some content…
+                    {t('copy-paste-input.dialog.loading')}
                   </Text>
                 </Flex>
               </Card>
@@ -328,7 +340,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
             mode="ghost"
             type="button"
             onClick={multipleDuplicate}
-            text={'Duplicate to multiple pages'}
+            text={t('copy-paste-input.dialog.header')}
             icon={CopyIcon}
           />
           <Button
