@@ -1,5 +1,7 @@
 # Sanity Plugin Sync Content
 
+A Sanity plugin for copy and pasting referenced blocks in array type of fields in Sanity Studio. Based on [sanity-plugin-copy-paste](https://github.com/superside-oss/sanity-copy-paste), but was configured to fit the use cases of our projects needs.
+
 > This is a **Sanity Studio v3** plugin.
 
 ## Installation
