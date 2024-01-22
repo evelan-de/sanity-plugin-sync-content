@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { ClipboardIcon, CopyIcon } from '@sanity/icons';
@@ -230,10 +231,10 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
       });
   };
 
-  const multipleDuplicate = () => {
+  const multipleDuplicate = useCallback(() => {
     onCopy(false);
     onOpen();
-  };
+  }, []);
 
   const deselectAll = () => {
     setCheckedPages({});
@@ -274,6 +275,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
                   <Flex
                     className="!sticky !bottom-0 bg-white !py-2 !px-3 border-t"
                     justify="space-between"
+                    wrap="wrap"
                   >
                     <Button
                       text="Deselect all"
@@ -323,7 +325,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
             )}
           </Dialog>
         )}
-        <Flex gap={2} align="center">
+        <Flex gap={2} align="center" wrap="wrap">
           <Button
             mode="ghost"
             type="button"
