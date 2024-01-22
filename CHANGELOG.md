@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/evelan-de/sanity-plugin-sync-content/compare/v1.0.0...v1.0.1) (2024-01-22)
+
+### Bug Fixes
+
+- **input:** add flex wrap to fix style inconsistencies in mobile devices ([20bf398](https://github.com/evelan-de/sanity-plugin-sync-content/commit/20bf398d9653cfd3d0a870071f7805c1b6050b09))
+
 ## 1.0.0 (2023-12-19)
 
 ### Features
