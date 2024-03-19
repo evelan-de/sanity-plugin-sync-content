@@ -24,14 +24,14 @@ import {
 } from '../utils';
 import SelectedPage from './SelectedPage';
 
-interface MultiplePagesDialogeProps {
+interface MultiplePagesDialogProps {
   id: string;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
   isLoadingPaste: boolean;
   setLoadingPaste: Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MultiplePagesDialog: FC<MultiplePagesDialogeProps> = ({
+const MultiplePagesDialog: FC<MultiplePagesDialogProps> = ({
   id,
   setOpen,
   isLoadingPaste,

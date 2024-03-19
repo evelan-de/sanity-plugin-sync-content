@@ -19,6 +19,7 @@ import {
   getObjectFromLs,
   writeObjectToLs,
 } from '../utils';
+import ClipboardDialog from './clipboard/ClipboardDialog';
 import MultiplePagesDialog from './MultiplePagesDialog';
 import { SpinnerFixed } from './SpinnerFixed';
 
@@ -26,12 +27,10 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
   const client = useClient({ apiVersion: '2021-10-21' });
   const toast = useToast();
 
-  const [open, setOpen] = useState(false);
+  const [openMultiplePagesDialog, setOpenMultiplePagesDialog] = useState(false);
+  const [openClipboard, setOpenClipboard] = useState(false);
   const [isLoadingPaste, setLoadingPaste] = useState(false);
   const [allowedToPaste, setAllowedToPaste] = useState(false);
-
-  // const onClose = useCallback(() => setOpen(false), []);
-  const onOpen = useCallback(() => setOpen(true), []);
 
   const match = RegExp(/_key=="(\w+)"/).exec(id) ?? [];
   const extractedString = match[1];
@@ -120,24 +119,26 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
 
   const multipleDuplicate = useCallback(() => {
     onCopy(false);
-    onOpen();
+    setOpenMultiplePagesDialog(true);
   }, []);
 
   const onClipboard = useCallback(() => {
-    // eslint-disable-next-line no-console
-    console.log('on clipboard');
+    setOpenClipboard(true);
   }, []);
 
   return (
     <ThemeProvider theme={studioTheme}>
       <Stack space={1}>
-        {open && (
+        {openMultiplePagesDialog && (
           <MultiplePagesDialog
             id={id}
             isLoadingPaste={isLoadingPaste}
             setLoadingPaste={setLoadingPaste}
-            setOpen={setOpen}
+            setOpen={setOpenMultiplePagesDialog}
           />
+        )}
+        {openClipboard && (
+          <ClipboardDialog open={openClipboard} setOpen={setOpenClipboard} />
         )}
         <Flex gap={2} align="center" wrap="wrap">
           <Button
