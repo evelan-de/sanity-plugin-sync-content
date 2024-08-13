@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/evelan-de/sanity-plugin-sync-content/compare/v1.1.0...v1.1.1) (2024-08-13)
+
+### Bug Fixes
+
+- regex for extracting key now supports @sanity/uuid ([743fb1b](https://github.com/evelan-de/sanity-plugin-sync-content/commit/743fb1b1bc289767d4d1b3945ccd5b5c60a98703))
+
 ## [1.1.0](https://github.com/evelan-de/sanity-plugin-sync-content/compare/v1.0.1...v1.1.0) (2024-08-13)
 
 ### Features
