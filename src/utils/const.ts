@@ -1,5 +1,10 @@
 export const documentsQuery = `
-  *[_type == $documentType && !(_id in path('drafts.**'))]{
-    _id,_type,_updatedAt,"title": coalesce(title,name)
+*[_type == $documentType && !(_id in path('drafts.**'))]{
+    _id,
+    language,
+    "slug": slug.current,
+    _type,
+    _updatedAt,
+    "title": coalesce(title,name)
   } | order(_updatedAt desc)
 `;
