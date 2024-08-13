@@ -43,7 +43,8 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
   const onClose = useCallback(() => setOpen(false), []);
   const onOpen = useCallback(() => setOpen(true), []);
 
-  const match = RegExp(/_key=="(\w+)"/).exec(id) ?? [];
+  const match = RegExp(/_key=="([\w-]+)"/).exec(id) ?? [];
+
   const extractedString = match[1];
   const blocksName = id.split('[')[0];
 
