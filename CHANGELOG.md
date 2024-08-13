@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/evelan-de/sanity-plugin-sync-content/compare/v1.0.1...v1.1.0) (2024-08-13)
+
+### Features
+
+- updates the select options for contextual information ([db12cd8](https://github.com/evelan-de/sanity-plugin-sync-content/commit/db12cd8f98da44679434e486a61e60a756352f5f))
+
 ## [1.0.1](https://github.com/evelan-de/sanity-plugin-sync-content/compare/v1.0.0...v1.0.1) (2024-01-22)
 
 ### Bug Fixes
