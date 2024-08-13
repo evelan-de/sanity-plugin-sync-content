@@ -34,7 +34,7 @@ const SelectedPage: FC<SelectedPageProps> = ({
   isDeselect,
 }) => {
   const pageRef = useRef<HTMLInputElement>(null);
-  const { title, _id } = page;
+  const { title, _id, language, slug } = page;
 
   const handleCheckPage = useCallback(
     (e: FormEvent<HTMLInputElement>) => {
@@ -67,7 +67,11 @@ const SelectedPage: FC<SelectedPageProps> = ({
               <Flex gap={2} direction="column">
                 <Text>{title}</Text>
                 <Text size={1} muted>
-                  {_id}
+                  {language || slug
+                    ? `${language ? `${language.toUpperCase()} | ` : ''}${
+                        slug ?? ''
+                      }`
+                    : _id}
                 </Text>
               </Flex>
             </Box>
