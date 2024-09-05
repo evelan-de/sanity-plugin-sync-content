@@ -18,6 +18,7 @@ import {
 import React, { useCallback, useEffect, useState } from 'react';
 import { StringInputProps, useClient, useFormValue } from 'sanity';
 
+import usePluginTranslation from '../hooks/usePluginTranslation';
 import type { CheckedPage, Page } from '../types';
 import {
   cn,
@@ -30,6 +31,7 @@ import SelectedPage from './SelectedPage';
 import { SpinnerFixed } from './SpinnerFixed';
 
 const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
+  const { t } = usePluginTranslation();
   const client = useClient({ apiVersion: '2021-10-21' });
   const toast = useToast();
 
@@ -57,7 +59,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
     _key: string;
   };
   const parentIndex = blocks.findIndex(
-    (block) => block._key === extractedString
+    (block) => block._key === extractedString,
   );
   const duplicateDisable =
     Object.values(checkedPages).filter((value) => value).length < 1 ||
@@ -90,7 +92,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
     const nestedPath = `${blocksName}[${parentIndex}]`;
     const published = documentId.replace(/^drafts\./, '');
     const draftsVersionExist = await client.fetch(
-      `!(count(*[_id == 'drafts.${published}'])==0)`
+      `!(count(*[_id == 'drafts.${published}'])==0)`,
     );
     const updateDocument = async () => {
       await client
@@ -101,7 +103,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
           setLoadingPaste(false);
           toast.push({
             status: 'success',
-            title: 'Pasted successfully',
+            title: t('toast.success.paste.title'),
           });
         })
         .catch((err) => {
@@ -109,7 +111,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
           console.error(err);
           toast.push({
             status: 'error',
-            title: `Something went wrong: ${
+            title: `${t('toast.error.title')}: ${
               err.details?.items
                 ? err?.details?.items
                     .map((item: any) => item?.error?.description)
@@ -138,7 +140,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
     if (isToast) {
       toast.push({
         status: 'success',
-        title: 'Copied successfully',
+        title: t('toast.success.copy.title'),
       });
     }
     setAllowedToPaste(true);
@@ -149,7 +151,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
 
     const objCopy = getObjectFromLs(parent._type);
     const pagesForPatch = Object.entries(checkedPages).filter(
-      (page) => page[1]
+      (page) => page[1],
     );
 
     let i = 0;
@@ -158,7 +160,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
         const _id = page[0];
         const published = _id.replace(/^drafts\./, '');
         const draftsVersionExist = await client.fetch(
-          `!(count(*[_id == 'drafts.${published}']) == 0)`
+          `!(count(*[_id == 'drafts.${published}']) == 0)`,
         );
         const updateDocument = async () => {
           const copiedBlock = deepSearchReplace(objCopy);
@@ -179,7 +181,7 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
               console.error(err);
               toast.push({
                 status: 'error',
-                title: `Something went wrong: ${
+                title: `${t('toast.error.title')}: ${
                   err?.details?.items
                     ?.map((item: any) => item?.error?.description)
                     ?.join('; ') ||
@@ -214,13 +216,13 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
           setTimeout(() => {
             toast.push({
               status: 'success',
-              title: `Duplicated to ${i} pages successfully`,
+              title: t('toast.success.duplicate.title', { pageCount: i }),
             });
           }, 1000);
         } else {
           toast.push({
             status: 'warning',
-            title: `Duplicated to ${i} pages with some warnings`,
+            title: t('toast.warning.duplicate.title', { pageCount: i }),
           });
         }
         setLoadingPaste(false);
@@ -250,18 +252,18 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
       <Stack space={1}>
         {open && (
           <Dialog
-            header="Duplicate to multiple pages"
-            id="dialog"
+            header={t('dialog.header.title')}
+            id='dialog'
             onClose={onClose}
             zOffset={1000}
             width={600}
           >
             {pagesForMultipleCopy.length > 0 ? (
               <form onSubmit={onSubmit}>
-                <Box className="relative overflow-visible h-[31.25rem]">
-                  <Box padding={4} className="max-h-full overflow-y-scroll">
+                <Box className='relative overflow-visible h-[31.25rem]'>
+                  <Box padding={4} className='max-h-full overflow-y-scroll'>
                     <Text size={1} muted>
-                      Ordered by update date
+                      {t('dialog.checkbox.form.title')}
                     </Text>
                     {pagesForMultipleCopy.map((page) => (
                       <SelectedPage
@@ -274,35 +276,35 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
                     ))}
                   </Box>
                   <Flex
-                    className="!sticky !bottom-0 bg-white !py-2 !px-3 border-t"
-                    justify="space-between"
-                    wrap="wrap"
+                    className='!sticky !bottom-0 bg-white !py-2 !px-3 border-t'
+                    justify='space-between'
+                    wrap='wrap'
                   >
                     <Button
-                      text="Deselect all"
-                      mode="ghost"
+                      text={t('dialog.deselect.title')}
+                      mode='ghost'
                       onClick={() => deselectAll()}
                       disabled={duplicateDisable}
                       className={cn(
                         duplicateDisable
                           ? 'cursor-not-allowed'
-                          : 'cursor-pointer'
+                          : 'cursor-pointer',
                       )}
                     />
                     <Button
                       text={
                         isLoadingPaste
-                          ? 'Duplicating to selected pages...'
-                          : 'Duplicate the block to selected pages'
+                          ? t('dialog.pasting.title')
+                          : t('dialog.paste.title')
                       }
-                      tone="positive"
+                      tone='positive'
                       disabled={duplicateDisable}
                       icon={CopyIcon}
-                      type="submit"
+                      type='submit'
                       className={cn(
                         duplicateDisable
                           ? 'cursor-not-allowed'
-                          : 'cursor-pointer'
+                          : 'cursor-pointer',
                       )}
                     />
                   </Flex>
@@ -311,47 +313,51 @@ const CopyPasteInput: React.FC<StringInputProps> = ({ id }) => {
             ) : (
               <Card padding={4}>
                 <Flex
-                  align="center"
-                  direction="row"
+                  align='center'
+                  direction='row'
                   gap={3}
-                  height="fill"
-                  justify="center"
+                  height='fill'
+                  justify='center'
                 >
                   <Spinner muted />
                   <Text muted size={1}>
-                    Loading some content…
+                    {t('dialog.loading.title')}
                   </Text>
                 </Flex>
               </Card>
             )}
           </Dialog>
         )}
-        <Flex gap={2} align="center" wrap="wrap">
+        <Flex gap={2} align='center' wrap='wrap'>
           <Button
-            mode="ghost"
-            type="button"
+            mode='ghost'
+            type='button'
             onClick={multipleDuplicate}
-            text={'Duplicate to multiple pages'}
+            text={t('button.duplicate.title')}
             icon={CopyIcon}
           />
           <Button
-            mode="ghost"
-            type="button"
+            mode='ghost'
+            type='button'
             onClick={() => onCopy()}
-            text={'Copy'}
+            text={t('button.copy.title')}
             icon={CopyIcon}
           />
           <Button
-            mode="ghost"
-            type="button"
+            mode='ghost'
+            type='button'
             onClick={() => onPaste()}
-            text={isLoadingPaste ? 'Pasting...' : 'Paste'}
+            text={
+              isLoadingPaste
+                ? t('button.pasting.title')
+                : t('button.paste.title')
+            }
             icon={isLoadingPaste ? SpinnerFixed : ClipboardIcon}
             disabled={!allowedToPaste || isLoadingPaste}
             className={cn(
               allowedToPaste && !isLoadingPaste
                 ? 'cursor-pointer'
-                : 'cursor-not-allowed'
+                : 'cursor-not-allowed',
             )}
           />
         </Flex>
