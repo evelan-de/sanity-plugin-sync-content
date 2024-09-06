@@ -17,6 +17,8 @@
   },
   "license": "MIT",
   "author": "Evelan <kontakt@evelan.de>",
+  "sideEffects": false,
+  "type": "commonjs",
   "exports": {
     ".": {
       "source": "./src/index.ts",
@@ -27,8 +29,6 @@
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
-  "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -54,6 +54,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.4.1",
     "@commitlint/config-conventional": "19.4.1",
+    "@sanity/browserslist-config": "1.0.3",
     "@sanity/eslint-config-studio": "3.0.1",
     "@sanity/pkg-utils": "6.11.0",
     "@sanity/plugin-kit": "4.0.18",
@@ -80,7 +81,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-is": "18.3.1",
-    "sanity": "3.56.0",
+    "sanity": "3.57.0",
     "styled-components": "6.1.13",
     "typescript": "5.5.4"
   },
@@ -88,6 +89,7 @@
     "react": "^18",
     "sanity": "^3"
   },
+  "browserslist": "extends @sanity/browserslist-config",
   "engines": {
     "node": ">=18"
   },
