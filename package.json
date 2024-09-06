@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-sync-content",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A Sanity plugin for copy and pasting referenced blocks in array type of fields in Sanity Studio. Based on sanity-plugin-copy-paste, but was configured to fit the use cases of our projects needs.",
   "keywords": [
     "sanity",
