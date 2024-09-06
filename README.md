@@ -125,13 +125,13 @@ This plugin uses the [Studio UI Localization](https://www.sanity.io/docs/localiz
 - `en-US`
 - `de-DE`
 
-If you want to override or add a new language, you will need to create a custom bundle with your desired translations. In order to override/add you must use `syncContent` as the namespace and add it to the `i18n` object in your sanity plugin configuration. Here is an example:
+If you want to override or add a new language, you will need to create a custom bundle with your desired translations. In order to override/add you must use `sanity-plugin-sync-content` as the namespace and add it to the `i18n` object in your sanity plugin configuration. Here is an example:
 
 ```ts
 const myEnglishOverride = defineLocaleResourceBundle({
   // make sure the `locale` language code corresponds to the one you want to override
   locale: 'en-US',
-  namespace: 'syncContent',
+  namespace: 'sanity-plugin-sync-content',
   resources: {
     'button.copy.title': 'My custom Copy title',
   },

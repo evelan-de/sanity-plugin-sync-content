@@ -9,4 +9,4 @@ export const documentsQuery = `
   } | order(_updatedAt desc)
 `;
 
-export const I18N_NAMESPACE = 'syncContent';
+export const I18N_NAMESPACE = 'sanity-plugin-sync-content';
