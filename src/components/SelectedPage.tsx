@@ -43,7 +43,7 @@ const SelectedPage: FC<SelectedPageProps> = ({
         [page._id]: (e.target as HTMLInputElement).checked,
       });
     },
-    [checkedPages, page._id, setCheckedPages]
+    [checkedPages, page._id, setCheckedPages],
   );
 
   useEffect(() => {
@@ -55,16 +55,16 @@ const SelectedPage: FC<SelectedPageProps> = ({
   return (
     <ThemeProvider theme={studioTheme}>
       <Card padding={4}>
-        <Flex align="center">
+        <Flex align='center'>
           <Checkbox
             id={page._id}
-            className="block"
+            className='block'
             ref={pageRef}
             onChange={handleCheckPage}
           />
           <label htmlFor={page._id}>
             <Box flex={1} paddingLeft={3}>
-              <Flex gap={2} direction="column">
+              <Flex gap={2} direction='column'>
                 <Text>{title}</Text>
                 <Text size={1} muted>
                   {language || slug

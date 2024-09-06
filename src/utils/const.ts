@@ -8,3 +8,5 @@ export const documentsQuery = `
     "title": coalesce(title,name)
   } | order(_updatedAt desc)
 `;
+
+export const I18N_NAMESPACE = 'sanity-plugin-sync-content';

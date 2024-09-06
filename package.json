@@ -1,7 +1,7 @@
 {
   "name": "sanity-plugin-sync-content",
   "version": "1.1.1",
-  "description": "",
+  "description": "A Sanity plugin for copy and pasting referenced blocks in array type of fields in Sanity Studio. Based on sanity-plugin-copy-paste, but was configured to fit the use cases of our projects needs.",
   "keywords": [
     "sanity",
     "sanity-plugin",
@@ -17,19 +17,18 @@
   },
   "license": "MIT",
   "author": "Evelan <kontakt@evelan.de>",
+  "sideEffects": false,
+  "type": "commonjs",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
       "source": "./src/index.ts",
-      "import": "./dist/index.esm.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.js",
-      "default": "./dist/index.esm.js"
+      "default": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
-  "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -38,60 +37,63 @@
     "v2-incompatible.js"
   ],
   "scripts": {
-    "build": "run-s clean && plugin-kit verify-package --silent && pkg-utils build --strict && pkg-utils --strict",
-    "clean": "rimraf dist",
+    "build": "plugin-kit verify-package --silent && pkg-utils build --strict --check --clean",
     "format": "prettier --write --cache --ignore-unknown .",
     "link-watch": "plugin-kit link-watch",
     "lint": "eslint .",
-    "prepublishOnly": "run-s build",
+    "prepublishOnly": "npm run build",
     "watch": "pkg-utils watch --strict",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
-    "@sanity/icons": "2.8.0",
+    "@sanity/icons": "3.4.0",
     "@sanity/incompatible-plugin": "1.0.4",
-    "@sanity/ui": "1.9.3",
-    "tailwind-merge": "2.1.0"
+    "@sanity/ui": "2.8.9",
+    "tailwind-merge": "2.5.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "18.4.3",
-    "@commitlint/config-conventional": "18.4.3",
+    "@commitlint/cli": "19.4.1",
+    "@commitlint/config-conventional": "19.4.1",
+    "@sanity/browserslist-config": "1.0.3",
     "@sanity/eslint-config-studio": "3.0.1",
-    "@sanity/pkg-utils": "3.3.5",
-    "@sanity/plugin-kit": "3.1.10",
-    "@sanity/semantic-release-preset": "4.1.6",
+    "@sanity/pkg-utils": "6.11.0",
+    "@sanity/plugin-kit": "4.0.18",
+    "@sanity/semantic-release-preset": "5.0.0",
     "@types/dompurify": "3.0.5",
-    "@types/react": "18.2.45",
+    "@types/react": "18.3.5",
     "@types/styled-components": "5.1.34",
-    "@typescript-eslint/eslint-plugin": "6.14.0",
-    "@typescript-eslint/parser": "6.14.0",
-    "eslint": "8.56.0",
+    "@typescript-eslint/eslint-plugin": "6.7.5",
+    "@typescript-eslint/parser": "6.7.5",
+    "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-config-sanity": "7.0.1",
+    "eslint-config-sanity": "7.1.2",
     "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-prettier": "5.0.1",
-    "eslint-plugin-react": "7.33.2",
-    "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-simple-import-sort": "10.0.0",
-    "eslint-plugin-unused-imports": "3.0.0",
-    "husky": "8.0.3",
-    "lint-staged": "15.2.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-react": "7.35.0",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-simple-import-sort": "12.1.1",
+    "eslint-plugin-unused-imports": "3.2.0",
+    "husky": "9.1.5",
+    "lint-staged": "15.2.10",
     "npm-run-all": "4.1.5",
-    "prettier": "3.1.1",
-    "prettier-plugin-packagejson": "2.4.7",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-is": "18.2.0",
-    "rimraf": "5.0.5",
-    "sanity": "3.21.3",
-    "styled-components": "6.1.1",
-    "typescript": "5.3.3"
+    "prettier": "3.3.3",
+    "prettier-plugin-packagejson": "2.5.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-is": "18.3.1",
+    "sanity": "3.57.0",
+    "styled-components": "6.1.13",
+    "typescript": "5.5.4"
   },
   "peerDependencies": {
     "react": "^18",
     "sanity": "^3"
   },
+  "browserslist": "extends @sanity/browserslist-config",
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
+  },
+  "overrides": {
+    "conventional-changelog-conventionalcommits": ">= 8.0.0"
   }
 }
