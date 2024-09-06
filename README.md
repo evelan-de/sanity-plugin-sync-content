@@ -92,6 +92,9 @@ This plugin uses the [Studio UI Localization](https://www.sanity.io/docs/localiz
 
 ```ts
 {
+  // Title of the schema field
+  'schema.title': 'Copy/paste the item',
+
   // Toast
   'toast.success.copy.title': 'Copied successfully',
   'toast.success.paste.title': 'Pasted successfully',

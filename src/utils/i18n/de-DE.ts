@@ -1,6 +1,8 @@
 import { removeUndefinedLocaleResources } from 'sanity';
 
 export const DEFAULT_DE_SCHEMA_TRANSLATIONS = removeUndefinedLocaleResources({
+  'schema.title': 'Kopieren/Einfügen des Artikels',
+
   // Toast
   'toast.success.copy.title': 'Erfolgreich kopiert',
   'toast.success.paste.title': 'Erfolgreich eingefügt',
