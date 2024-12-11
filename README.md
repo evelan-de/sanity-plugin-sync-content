@@ -2,6 +2,10 @@
 
 A Sanity plugin for copy and pasting referenced blocks in array type of fields in Sanity Studio. Based on [sanity-plugin-copy-paste](https://github.com/superside-oss/sanity-copy-paste), but was configured to fit the use cases of our projects needs.
 
+> ⚠️ **DEPRECATED** ⚠️
+> 
+> This plugin is now deprecated as the copy/paste functionality for documents and references is already built into the latest versions of Sanity Studio. Please use the official Sanity implementation instead.
+
 > This is a **Sanity Studio v3** plugin.
 
 - [Sanity Plugin Sync Content](#sanity-plugin-sync-content)
